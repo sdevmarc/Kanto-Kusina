@@ -23,7 +23,7 @@ export default function Navbar() {
                         </h1>
                     </div>
 
-                    <div className="flex justify-center items-center gap-[1.5rem]">
+                    <div className="flex justify-center items-center gap-[3rem]">
                         <NavLink
                             to={'/'}
                             className={`text-[.9rem] text-[#ffffff]`}
@@ -46,7 +46,7 @@ export default function Navbar() {
                             to={'/'}
                             className={`text-[.9rem] text-[#ffffff]`}
                         >
-                            Order now
+                            About
                         </NavLink>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ export default function Navbar() {
                     <button
                         className='px-[3rem] py-[.8rem] bg-[#111111] text-[#ffffff] rounded-br-[1rem] rounded-tr-[1rem] rounded-bl-[1rem] rounded-tl-[.5rem] text-[.9rem] font-[600] duration-300 hover:scale-[.98] hover:opacity-[.9] ease'
                     >
-                        Register
+                        Order Now
                     </button>
                 </div>
             </div>
