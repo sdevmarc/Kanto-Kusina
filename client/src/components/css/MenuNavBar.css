@@ -1,0 +1,12 @@
+a.active {
+    color: black;
+    background: #ffcb05;
+}
+
+.navbar-default {
+    height: 8rem;
+}
+
+.navbar-scrolled {
+    height: 5rem;
+}
