@@ -1,60 +1,60 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
 import './css/Navbar.css'
-import Logo from '../assets/KKLogo.jpg'
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+    const [scrolled, setScrolled] = useState(false);
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const handleOrderOnline = () => {
+        navigate('/orderonline')
+    }
+
     return (
         <>
-            <div className="absolute w-full h-[9rem] flex justify-between items-center px-[3rem] py-[1rem]">
-                <div className="flex justify-between items-center gap-[6rem] pl-[2rem] pr-[4rem] py-[1rem] bg-[#111111] rounded-tr-[1rem] rounded-bl-[1rem] rounded-tl-[.3rem] rounded-br-[.3rem]">
-                    <div className="flex justify-start items-center gap-[.7rem] cursor-pointer">
-                        <div className="overflow-hidden w-[2rem] h-full bg-black">
-                            <img
-                                src={Logo}
-                                alt="Kanto Kusina Logo"
-                                className='object-cover w-full'
-                            />
-                        </div>
-                        <h1
-                            className='font-[600] text-[#ffffff]'
-                        >
-                            Kanto Kusina
-                        </h1>
-                    </div>
-
-                    <div className="flex justify-center items-center gap-[3rem]">
-                        <NavLink
-                            to={'/'}
-                            className={`text-[.9rem] text-[#ffffff]`}
-                        >
-                            Home
-                        </NavLink>
-                        <NavLink
-                            to={'/'}
-                            className={`text-[.9rem] text-[#ffffff]`}
-                        >
-                            Services
-                        </NavLink>
-                        <NavLink
-                            to={'/'}
-                            className={`text-[.9rem] text-[#ffffff]`}
-                        >
-                            Menu
-                        </NavLink>
-                        <NavLink
-                            to={'/'}
-                            className={`text-[.9rem] text-[#ffffff]`}
-                        >
-                            About
-                        </NavLink>
-                    </div>
+            <div className="w-full h-[3rem] bg-[#000] flex justify-center items-center">
+                <h1 className='text-[#ffcb05] font-[800] text-[.9rem] tracking-[.3rem]'>
+                    Mama's Legacy to Feed
+                </h1>
+            </div>
+            <div className={`sticky top-0 w-full flex justify-between items-center px-[3rem] py-[1rem] bg-[#ffcb05] z-20 transition-all duration-300 ${scrolled ? 'navbar-scrolled' : 'navbar-default'}`}>
+                <div className='h-full flex justify-start items-center cursor-pointer'>
+                    <h1 className='font-extrabold text-black text-[3rem] tracking-[.18rem]'>
+                        KANTO KUSINA
+                    </h1>
                 </div>
-                <div>
+                <div className="flex justify-center items-center gap-[1rem]">
+                    <a href='#' className='text-[.9rem] text-black font-extrabold duration-300 ease hover:bg-black hover:text-[#ffcb05] px-[1.5rem] tracking-[.2rem]'>
+                        HOME
+                    </a>
+                    <a href='#menu' className='text-[.9rem] text-black font-extrabold duration-300 ease hover:bg-black hover:text-[#ffcb05] px-[1.5rem] tracking-[.2rem]'>
+                        MENU
+                    </a>
+                    <a href='#services' className='text-[.9rem] text-black font-extrabold duration-300 ease hover:bg-black hover:text-[#ffcb05] px-[1.5rem] tracking-[.2rem]'>
+                        SERVICES
+                    </a>
+                    <a href='#location' className='text-[.9rem] text-black font-extrabold duration-300 ease hover:bg-black hover:text-[#ffcb05] px-[1.5rem] tracking-[.2rem]'>
+                        LOCATION
+                    </a>
                     <button
-                        className='px-[3rem] py-[.8rem] bg-[#111111] text-[#ffffff] rounded-br-[1rem] rounded-tr-[1rem] rounded-bl-[1rem] rounded-tl-[.5rem] text-[.9rem] font-[600] duration-300 hover:scale-[.98] hover:opacity-[.9] ease'
-                    >
-                        Order Now
+                        onClick={handleOrderOnline}
+                        className='px-[1rem] py-[.3rem] text-black font-[800] border-[2px] border-black text-[.9rem] duration-300 hover:bg-black hover:text-[#ffcb05] ease tracking-[.2rem]'>
+                        ORDER ONLINE
                     </button>
                 </div>
             </div>
