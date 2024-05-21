@@ -2,10 +2,10 @@
 const ProductMidlleware = {
     CreateProductCheckEmptyFields: async (req, res, next) => {
         try {
-            const { userId, sellerId, productInformation } = req.body
+            const { userId, productInformation } = req.body
             const { productName, productDetails, productPhoto, productPrice } = productInformation
 
-            if (!userId || !sellerId || !productName || !productDetails || !productPhoto || !productPrice) {
+            if (!userId || !productName || !productDetails || !productPhoto || !productPrice) {
                 return res.json({ success: false, message: 'Please fill-in the required fields!' })
             } else {
                 next()
@@ -29,9 +29,10 @@ const ProductMidlleware = {
     },
     UpdateCheckEmptyFields: async (req, res, next) => {
         try {
-            const { productId } = req.body
+            const { productId, productInformation } = req.body
+            const { productName, productDetails, productPhoto, productPrice } = productInformation
 
-            if (!productId) {
+            if (!productId || productName || productDetails || productPhoto || productPrice) {
                 return res.json({ success: false, message: 'Please fill-in the required fields!' })
             } else {
                 next()
