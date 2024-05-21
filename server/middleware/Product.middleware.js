@@ -16,7 +16,7 @@ const ProductMidlleware = {
     },
     SearchCheckEmptyFields: async (req, res, next) => {
         try {
-            const { searchId } = req.body
+            const { searchId } = req.params
 
             if (!searchId) {
                 return res.json({ success: false, message: 'Please fill-in the required fields!' })
@@ -32,8 +32,8 @@ const ProductMidlleware = {
             const { productId, productInformation } = req.body
             const { productName, productDetails, productPhoto, productPrice } = productInformation
 
-            if (!productId || productName || productDetails || productPhoto || productPrice) {
-                return res.json({ success: false, message: 'Please fill-in the required fields!' })
+            if (!productId || !productName || !productDetails || !productPhoto || !productPrice) {
+                return res.json({ success: false, message: 'Please fill-in the required fields!',  })
             } else {
                 next()
             }
