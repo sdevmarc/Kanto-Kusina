@@ -1,5 +1,4 @@
 import React from 'react'
-import MenuNavBar from '../components/MenuNavBar'
 
 export default function Menu() {
     return (
