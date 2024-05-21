@@ -49,7 +49,7 @@ const LoginMiddleware = {
 
             const CheckUsernameIfMatched = await Users.findOne({ password: password })
             if (CheckUsernameIfMatched) {
-                next()
+                return res.json({ success: true, message: 'User Authorized!' })
             } else {
                 return res.json({ success: false, message: 'Invalid Credentials' })
             }
@@ -63,7 +63,7 @@ const LoginMiddleware = {
 
             const CheckUsernameIfMatched = await Customers.findOne({ password: password })
             if (CheckUsernameIfMatched) {
-                next()
+                return res.json({ success: true, message: 'Customer Authorized!' })
             } else {
                 return res.json({ success: false, message: 'Invalid Credentials' })
             }
