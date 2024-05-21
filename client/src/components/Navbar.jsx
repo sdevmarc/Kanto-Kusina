@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './css/Navbar.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+import Logo from '../../public/KKLogo.jpg'
+import { IconButton } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -27,34 +31,52 @@ export default function Navbar() {
 
     return (
         <>
-            <div className="w-full h-[3rem] bg-[#000] flex justify-center items-center">
-                <h1 className='text-[#ffcb05] font-[800] text-[.9rem] tracking-[.3rem]'>
-                    Mama's Legacy to Feed
+            <div className="w-full h-[3dvh] bg-[#000] flex justify-center items-center">
+                <h1 className='text-[#ffcb05] font-[800] text-[.7rem] tracking-[.3rem]'>
+                    MAMA'S LEGACY TO FEED
                 </h1>
             </div>
-            <div className={`sticky top-0 w-full flex justify-between items-center px-[3rem] py-[1rem] bg-[#ffcb05] z-20 transition-all duration-300 ${scrolled ? 'navbar-scrolled' : 'navbar-default'}`}>
-                <div className='h-full flex justify-start items-center cursor-pointer'>
-                    <h1 className='font-extrabold text-black text-[3rem] tracking-[.18rem]'>
-                        KANTO KUSINA
-                    </h1>
+            <div className={`sticky top-0 w-full h-[7dvh] bg-white flex justify-between items-center px-[18rem] z-20 transition-all duration-300'}`}>
+                <div className="overflow-hidden h-full flex justify-start items-center gap-[1rem]">
+                    <div className="overflow-hidden w-[2rem] h-[h-full] bg-black">
+                        <img src={Logo} alt="Logo" className='object-cover w-full h-full' />
+                    </div>
+                    <NavLink
+                        to={`/`}
+                        className='font-[500] text-black text-[.9rem]'
+                    >
+                        Home
+                    </NavLink>
+                    <NavLink
+                        to={`/`}
+                        className='font-[500] text-black text-[.9rem]'
+                    >
+                        Menu
+                    </NavLink>
+                    <NavLink
+                        to={`/`}
+                        className='font-[500] text-black text-[.9rem]'
+                    >
+                        About Us
+                    </NavLink>
+                    <NavLink
+                        to={`/`}
+                        className='font-[500] text-black text-[.9rem]'
+                    >
+                        Order Online
+                    </NavLink>
                 </div>
-                <div className="flex justify-center items-center gap-[1rem]">
-                    <a href='#' className='text-[.9rem] text-black font-extrabold duration-300 ease hover:bg-black hover:text-[#ffcb05] px-[1.5rem] tracking-[.2rem]'>
-                        HOME
-                    </a>
-                    <a href='#menu' className='text-[.9rem] text-black font-extrabold duration-300 ease hover:bg-black hover:text-[#ffcb05] px-[1.5rem] tracking-[.2rem]'>
-                        MENU
-                    </a>
-                    <a href='#services' className='text-[.9rem] text-black font-extrabold duration-300 ease hover:bg-black hover:text-[#ffcb05] px-[1.5rem] tracking-[.2rem]'>
-                        SERVICES
-                    </a>
-                    <a href='#location' className='text-[.9rem] text-black font-extrabold duration-300 ease hover:bg-black hover:text-[#ffcb05] px-[1.5rem] tracking-[.2rem]'>
-                        LOCATION
-                    </a>
+                <div className="h-full flex justify-end items-center gap-[.7rem]">
+                    <IconButton variant="text" sx={{ padding: '.7rem', backgroundColor: '#e5e5e5' }}>
+                        <ShoppingCartIcon sx={{ color: '#000000', fontSize: '1.1rem' }} />
+                    </IconButton>
+                    <IconButton variant="text" sx={{ padding: '.7rem', backgroundColor: '#e5e5e5' }}>
+                        <SearchIcon sx={{ color: '#000000', fontSize: '1.1rem' }} />
+                    </IconButton>
                     <button
-                        onClick={handleOrderOnline}
-                        className='px-[1rem] py-[.3rem] text-black font-[800] border-[2px] border-black text-[.9rem] duration-300 hover:bg-black hover:text-[#ffcb05] ease tracking-[.2rem]'>
-                        ORDER ONLINE
+                        className='px-[2rem] py-[.3rem] bg-[#ffcb05] text-[#000] text-[.9rem] font-[500] duration-300 ease hover:bg-black hover:text-[#ffcb05] hover:scale-[.98]'
+                    >
+                        Sign In
                     </button>
                 </div>
             </div>
