@@ -1,34 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './css/Navbar.css'
-import { useNavigate, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Logo from '../../public/KKLogo.jpg'
 import { IconButton } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function Navbar() {
-    const [scrolled, setScrolled] = useState(false);
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-    const handleOrderOnline = () => {
-        navigate('/orderonline')
-    }
-
+export default function Navbar({ isSignIn }) {
     return (
         <>
             <div className="w-full h-[3dvh] bg-[#000] flex justify-center items-center">
@@ -36,7 +14,7 @@ export default function Navbar() {
                     MAMA'S LEGACY TO FEED
                 </h1>
             </div>
-            <div className={`sticky top-0 w-full h-[7dvh] bg-white flex justify-between items-center px-[18rem] z-20 transition-all duration-300'}`}>
+            <div className={`sticky top-0 w-full h-[7dvh] bg-white flex justify-between items-center px-[18rem] z-[2] transition-all duration-300'}`}>
                 <div className="overflow-hidden h-full flex justify-start items-center gap-[1rem]">
                     <div className="overflow-hidden w-[2rem] h-[h-full] bg-black">
                         <img src={Logo} alt="Logo" className='object-cover w-full h-full' />
@@ -74,6 +52,7 @@ export default function Navbar() {
                         <SearchIcon sx={{ color: '#000000', fontSize: '1.1rem' }} />
                     </IconButton>
                     <button
+                    onClick={isSignIn}
                         className='px-[2rem] py-[.3rem] bg-[#ffcb05] text-[#000] text-[.9rem] font-[500] duration-300 ease hover:bg-black hover:text-[#ffcb05] hover:scale-[.98]'
                     >
                         Sign In
