@@ -7,6 +7,7 @@ const connectDb = require('../config/dbhandler')
 const UserRoute = require('../routes/Users.routes')
 const ProductRoute = require('../routes/Products.routes')
 const CustomerRoute = require('../routes/Customers.routes')
+const LoginRoute = require('../routes/Login.routes')
 
 app.use(cors({
     origin: '*',
@@ -22,6 +23,8 @@ app.get('/', (req, res) => {
         message: `This is Home`
     })
 })
+
+app.use('/api', LoginRoute)
 
 app.use('/api', UserRoute)
 
