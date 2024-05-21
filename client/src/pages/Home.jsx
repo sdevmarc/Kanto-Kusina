@@ -2,18 +2,65 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import './css/Home.css'
 import Footer from '../components/Footer'
-import { Button } from '@mui/material';
 import F2 from '../assets/f2.png'
 import F3 from '../assets/f3.png'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import "leaflet/dist/leaflet.css"
+import Modal from '@mui/material/Modal';
+import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
+    const [open, setOpen] = React.useState(false);
+    const navigate = useNavigate()
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const handleLogin = () => {
+        navigate('/dashboard')
+    }
+
     return (
         <>
+            <Modal
+                open={open}
+                onClose={handleClose}
+            >
+                <div className="form absolute top-[50%] flex flex-col justify-center items-center px-[4rem] gap-[2rem] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[30rem] h-[35rem] rounded-[2rem] bg-[#222222] py-[5rem]">
+                    <h1 className='text-white font-[600] text-[1.3rem]'>Welcome back!</h1>
+                    <div className="w-full flex flex-col gap-[.5rem]">
+                        <h1 className='text-white font-[400] text-[1.1rem]'>
+                            Username
+                        </h1>
+                        <input
+                            type="text"
+                            placeholder='Enter your username'
+                            className='rounded-lg py-[.7rem] px-[1rem] text-[.8rem] outline-none text-black'
+                        />
+                    </div>
+                    <div className="w-full flex flex-col gap-[.5rem]">
+                        <h1 className='text-white font-[400] text-[1.1rem]'>
+                            Password
+                        </h1>
+                        <input
+                            type="text"
+                            placeholder='Enter your password'
+                            className='rounded-lg py-[.7rem] px-[1rem] text-[.8rem] outline-none text-black'
+                        />
+                    </div>
+                    <button
+                        onClick={handleLogin}
+                        className='w-full h-[2.5rem] rounded-lg bg-[#ffcb05] duration-300 ease hover:opacity-[.6] hover:scale-[.98]'>
+                        Login
+                    </button>
+                </div>
+
+            </Modal>
             <div className="flex flex-col">
-                <Navbar />
+                <Navbar isSignIn={handleOpen} />
                 <div className="hero relative w-full h-[60dvh] px-[20rem] flex justify-start items-center">
                     <div className="z-[1] flex flex-col gap-[3rem]">
                         <div className="flex flex-col">
@@ -30,7 +77,7 @@ export default function Home() {
                         </button>
                     </div>
                 </div>
-                <div className="w-full h-[50dvh] bg-[#ffcb05] px-[20rem] flex flex-col justify-center items-center gap-[3rem]">
+                <div className="w-full h-[50dvh] bg-[#ffffff] px-[20rem] flex flex-col justify-center items-center gap-[3rem]">
                     <p className='w-[80%] text-[1.3rem] text-center font-[500]'>
                         Welcome to Kanto Kusina Restaurant, where we are committed to providing you with an unforgettable dining experience. From our cozy atmosphere to our mouth-watering dishes, we are dedicated to making your visit a memorable one.
                     </p>
