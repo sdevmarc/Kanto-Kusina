@@ -5,10 +5,6 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    sellerId: {
-        type: String,
-        required: true
-    },
     productInformation: {
         productName: {
             type: String,
