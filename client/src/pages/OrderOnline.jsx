@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import OrderNavBar from '../components/OrderNavBar'
-import AddToCart from '../components/AddToCart'
 
 export default function OrderOnline() {
     const [isModal, setModal] = useState(false)
