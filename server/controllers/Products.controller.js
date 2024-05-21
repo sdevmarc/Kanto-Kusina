@@ -31,7 +31,9 @@ const ProductController = {
             const { searchId } = req.params
 
             const SearchProduct = await Products.find(
-                { $regex: new RegExp(searchId, 'i') }
+                {
+                    "productInformation.productName": { $regex: new RegExp(searchId, 'i') }
+                }
             )
 
             res.json({ success: true, message: 'Product successfully fetched!', data: SearchProduct })
@@ -41,16 +43,16 @@ const ProductController = {
     },
     UpdateProduct: async (req, res) => {
         try {
-            const { productId, values } = req.body
-            const { productName, productDetails, productPhoto, productPrice } = values
+            const { productId, productInformation } = req.body
+            const { productName, productDetails, productPhoto, productPrice } = productInformation
 
             const UpdateProduct = await Products.findByIdAndUpdate(
                 productId,
                 {
                     "productInformation.productName": productName,
-                    "productInformation.productName": productDetails,
-                    "productInformation.productName": productPhoto,
-                    "productInformation.productName": productPrice,
+                    "productInformation.productDetails": productDetails,
+                    "productInformation.productPhoto": productPhoto,
+                    "productInformation.productPrice": productPrice,
                 },
                 {
                     new: true
@@ -58,7 +60,7 @@ const ProductController = {
             )
 
             if (UpdateProduct) {
-                res.json({ success: true, message: 'Product update successfully!' })
+                res.json({ success: true, message: 'Product updated successfully!' })
             } else {
                 res.json({ success: false, message: 'Product failed to update!' })
             }
@@ -69,7 +71,7 @@ const ProductController = {
     },
     DeleteProduct: async (req, res) => {
         try {
-            const { productId } = req.params;
+            const { productId } = req.body;
 
             const DeleteProduct = await Products.findByIdAndDelete(productId);
 
