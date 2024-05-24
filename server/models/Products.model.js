@@ -14,10 +14,7 @@ const ProductSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        productPhoto: {
-            type: String,
-            required: true
-        },
+        productPhoto: String,
         productPrice: {
             type: String,
             required: true
