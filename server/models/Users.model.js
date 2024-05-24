@@ -9,10 +9,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    contactno: {
-        type: String,
-        required: true
-    },
     personalDetails: {
         lastname: {
             type: String
