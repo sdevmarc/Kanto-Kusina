@@ -7,8 +7,10 @@ import Logo from '../../public/KKLogo.jpg'
 import { useState } from 'react'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import { useNavigate } from 'react-router-dom'
 
 export default function DashNavbar({ onSelectSidebar }) {
+    const navigate = useNavigate()
     const [isSidebar, setSidebar] = useState(true)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -22,6 +24,11 @@ export default function DashNavbar({ onSelectSidebar }) {
     const SidebarHandler = () => {
         setSidebar(prev => !prev)
         onSelectSidebar(isSidebar)
+    }
+
+    const handleLogout = () => {
+        localStorage.clear()
+        window.location.reload()
     }
 
     return (
@@ -63,9 +70,7 @@ export default function DashNavbar({ onSelectSidebar }) {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
                 </div>
             </div>
