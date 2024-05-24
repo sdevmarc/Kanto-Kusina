@@ -47,9 +47,8 @@ export default function Sidebar({ isSidebar }) {
 
 const Navs = [
     { id: 1, navigate: '/dashboard', name: 'Dashboard', icon: <DashboardIcon /> },
-    { id: 2, navigate: '/', name: 'Users', icon: <PeopleIcon /> },
-    { id: 3, navigate: '/', name: 'Customers', icon: <SchoolIcon /> },
-    { id: 4, navigate: '/', name: 'Menu', icon: <SchoolIcon /> }
+    { id: 2, navigate: '/users', name: 'Users', icon: <PeopleIcon /> },
+    { id: 4, navigate: '/menu', name: 'Menu', icon: <SchoolIcon /> }
 ]
 
 const bottomNavs = [
