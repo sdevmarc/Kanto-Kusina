@@ -26,7 +26,7 @@ export default function Navbar({ isSignIn }) {
                         Home
                     </NavLink>
                     <NavLink
-                        to={`/`}
+                        to={`/viewmenu`}
                         className='font-[500] text-black text-[.9rem]'
                     >
                         Menu
