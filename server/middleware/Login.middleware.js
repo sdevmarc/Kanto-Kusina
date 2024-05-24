@@ -19,12 +19,21 @@ const LoginMiddleware = {
         try {
             const { username } = req.body
 
-            const CheckUsernameIfMatched = await Users.findOne({ username: username })
-            if (CheckUsernameIfMatched) {
-                next()
+            checkUsers = await Users.find()
+            console.log(checkUsers)
+            
+            if(checkUsers.length > 0 ) {
+                const CheckUsernameIfMatched = await Users.findOne({ username: username })
+                if (CheckUsernameIfMatched) {
+                    next()
+                } else {
+                    return res.json({ success: false, message: 'Invalid Credentials' })
+                }
             } else {
-                return res.json({ success: false, message: 'Invalid Credentials' })
+                return res.json({ success: true, message: 'Admin login' })
             }
+
+          
         } catch (error) {
             res.json({ success: false, message: `Error adding customer controller: ${error}` })
         }
@@ -45,11 +54,18 @@ const LoginMiddleware = {
     },
     CheckUserPasswordIfMatched: async (req, res) => {
         try {
-            const { password } = req.body
+            const { username, password } = req.body
 
-            const CheckUsernameIfMatched = await Users.findOne({ password: password })
+            const CheckUsernameIfMatched = await Users.findOne({ username: username })
+
             if (CheckUsernameIfMatched) {
-                return res.json({ success: true, message: 'User Authorized!' })
+                console.log('Tite', password)
+                if (password === CheckUsernameIfMatched?.password) {
+                    return res.json({ success: true, message: 'User Authorized!', userId: CheckUsernameIfMatched?._id })
+                } else {
+                    return res.json({ success: false, message: 'User not Authorized!' })
+                }
+
             } else {
                 return res.json({ success: false, message: 'Invalid Credentials' })
             }
