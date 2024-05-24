@@ -3,12 +3,26 @@ const Products = require('../models/Products.model')
 const ProductController = {
     AddProduct: async (req, res) => {
         try {
-            const values = req.body
+            const { userId, productName, productDetails, productPrice } = req.body
+            // const { productName, productDetails, productPrice } = productInformation
+            const productPhoto = req.file.filename;
 
-            const AddProduct = await Products.create(values)
+            console.log(productPhoto)
+
+            const newProduct = new Products({
+                userId: userId,
+                productInformation: {
+                    productName: productName,
+                    productDetails: productDetails,
+                    productPhoto: productPhoto,
+                    productPrice: productPrice
+                }
+            });
+
+            const AddProduct = await newProduct.save();
 
             if (AddProduct) {
-                res.json({ success: true, message: 'Item added successfully!' })
+                res.json({ success: true, message: 'Item added successfully!', data: AddProduct })
             } else {
                 res.json({ success: false, message: 'Item failed to add!!' })
             }
@@ -43,12 +57,19 @@ const ProductController = {
     },
     UpdateProduct: async (req, res) => {
         try {
-            const { productId, productInformation } = req.body
-            const { productName, productDetails, productPhoto, productPrice } = productInformation
+            const { productId, userId, productInformation } = req.body
+            const { productName, productDetails, productPrice } = productInformation
+            let productPhoto = productInformation.productPhoto;
 
-            const UpdateProduct = await Products.findByIdAndUpdate(
+            // Check if a new photo was uploaded
+            if (req.file) {
+                productPhoto = req.file.filename;
+            }
+
+            const updatedProduct = await Products.findByIdAndUpdate(
                 productId,
                 {
+                    userId: userId,
                     "productInformation.productName": productName,
                     "productInformation.productDetails": productDetails,
                     "productInformation.productPhoto": productPhoto,
@@ -59,8 +80,8 @@ const ProductController = {
                 }
             )
 
-            if (UpdateProduct) {
-                res.json({ success: true, message: 'Product updated successfully!' })
+            if (updatedProduct) {
+                res.json({ success: true, message: 'Product updated successfully!', data: updatedProduct })
             } else {
                 res.json({ success: false, message: 'Product failed to update!' })
             }
