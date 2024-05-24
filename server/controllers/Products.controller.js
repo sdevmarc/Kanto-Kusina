@@ -7,8 +7,6 @@ const ProductController = {
             // const { productName, productDetails, productPrice } = productInformation
             const productPhoto = req.file.filename;
 
-            console.log(productPhoto)
-
             const newProduct = new Products({
                 userId: userId,
                 productInformation: {
