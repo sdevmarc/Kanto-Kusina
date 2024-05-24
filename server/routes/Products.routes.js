@@ -22,10 +22,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/addproduct', upload.single('productPhoto'), Products.AddProduct)
+router.post('/addproductwithimage', upload.single('productPhoto'), Products.AddProductWithImage)
+router.post('/addproductwithoutimage', Middleware.CreateProductCheckEmptyFields, Products.AddProductWithoutImage)
 router.get('/getallproducts', Products.GetAllProducts)
 router.get('/searchproduct/:searchId', Middleware.SearchCheckEmptyFields, Products.SearchProduct)
-router.post('/updateproduct', Middleware.UpdateCheckEmptyFields, Products.UpdateProduct)
+router.post('/updateproductwithoutimage',Middleware.UpdateWithoutImageCheckEmptyFields, Products.UpdateProductWithoutImage)
+router.post('/updateproductwithimage', upload.single('productPhoto'), Products.UpdateProductWithImage)
 router.post('/deleteproduct', Middleware.DeleteCheckEmptyFields, Products.DeleteProduct)
 
 module.exports = router
