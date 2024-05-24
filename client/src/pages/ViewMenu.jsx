@@ -68,6 +68,38 @@ export default function ViewMenu() {
 
     return (
         <>
+            <div className="flex flex-col">
+                <Navbar isSignIn={handleOpen} />
+                <div className="w-full h-screen p-[1rem] flex flex-col gap-[1rem]">
+                    <h1 className='text-[2rem] font-[600]'>Menu</h1>
+                    <div className="w-full h-full flex justify-start gap-[1rem] flex-wrap">
+                        {
+                            details?.map((item) => (
+                                <div key={item?._id}
+                                    className="overflow-hidden w-[17rem] h-[22rem] rounded-xl duration-300 ease hover:scale-[.98] flex flex-col shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
+                                    <div className="overflow-hidden w-full h-[60%] bg-black">
+                                        <img
+                                            src={`http://localhost:3001/uploads/${item?.productInformation?.productPhoto}`}
+                                            alt="Product image"
+                                            className='object-cover w-full h-full'
+                                        />
+                                    </div>
+                                    <div className="overflow-auto w-full h-[40%] flex flex-col px-[1rem] gap-[.5rem] py-[.5rem]">
+                                        <h1 className='w-full h-[30%] text-black text-[1.7rem] font-[600] text-ellipsis'>
+                                            {item?.productInformation?.productName}
+                                        </h1>
+
+                                        <p className='w-full h-[60%] text-black text-justify text-[.7rem] text-ellipsis overflow-hidden'>
+                                            {item?.productInformation?.productDetails}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+                <Footer />
+            </div>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -78,7 +110,7 @@ export default function ViewMenu() {
                 >
                     <div className="absolute top-[-1rem] right-[-1rem]">
                         <IconButton
-                        onClick={handleClose}
+                            onClick={handleClose}
                             variant="text"
                             sx={{ padding: '.7rem', backgroundColor: '#e5e5e5' }}
                         >
@@ -122,38 +154,6 @@ export default function ViewMenu() {
                     </button>
                 </form>
             </Modal>
-            <div className="flex flex-col">
-                <Navbar isSignIn={handleOpen} />
-                <div className="w-full h-screen p-[1rem] flex flex-col gap-[1rem]">
-                    <h1 className='text-[2rem] font-[600]'>Menu</h1>
-                    <div className="w-full h-full flex justify-start gap-[1rem]">
-                        {
-                            details?.map((item) => (
-                                <div key={item?._id}
-                                    className="overflow-hidden w-[17rem] h-[22rem] rounded-xl duration-300 ease hover:scale-[.98] flex flex-col shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
-                                    <div className="overflow-hidden w-full h-[60%] bg-black">
-                                        <img
-                                            src={`http://localhost:3001/uploads/${item?.productInformation?.productPhoto}`}
-                                            alt="Product image"
-                                            className='object-cover w-full h-full'
-                                        />
-                                    </div>
-                                    <div className="overflow-auto w-full h-[40%] flex flex-col px-[1rem] gap-[.5rem] py-[.5rem]">
-                                        <h1 className='w-full h-[30%] text-black text-[1.7rem] font-[600] text-ellipsis'>
-                                            {item?.productInformation?.productName}
-                                        </h1>
-
-                                        <p className='w-full h-[60%] text-black text-justify text-[.7rem] text-ellipsis overflow-hidden'>
-                                            {item?.productInformation?.productDetails}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))
-                        }
-                    </div>
-                </div>
-                <Footer />
-            </div>
         </>
     )
 }
