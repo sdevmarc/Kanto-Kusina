@@ -3,10 +3,9 @@ const Users = require('../models/Users.model')
 const UsersMidlleware = {
     CreateCheckEmptyFields: async (req, res, next) => {
         try {
-            const { username, password, contactno, personalDetails } = req.body
-            const { lastname, firstname, middlename } = personalDetails
+            const { username, password } = req.body
 
-            if (!username || !password || !contactno || !lastname || !firstname || !middlename) {
+            if (!username || !password) {
                 return res.json({ success: false, message: 'Please fill-in the required fields!' })
             } else {
                 next()
