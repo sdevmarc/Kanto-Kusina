@@ -7,6 +7,8 @@ import F3 from '../assets/f3.png'
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton } from '@mui/material';
 
 export default function Home() {
     const [open, setOpen] = React.useState(false);
@@ -33,10 +35,10 @@ export default function Home() {
         setOpen(false)
     }
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
         try {
-            const res = await axios.post('http://localhost:3001/api/loginu', values)
-            console.log(res?.data?.userId)
+            e.preventDefault()
+            const res = await axios.post('http://localhost:3001/api/login', values)
             if (res?.data?.success) {
                 const userId = res?.data?.userId
                 localStorage.setItem('userId', JSON.stringify({ userId }));
@@ -68,7 +70,19 @@ export default function Home() {
                 open={open}
                 onClose={handleClose}
             >
-                <div className="form absolute top-[50%] flex flex-col justify-center items-center px-[4rem] gap-[2rem] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[30rem] h-[35rem] rounded-[2rem] bg-[#222222] py-[5rem]">
+                <form
+                    onSubmit={handleLogin}
+                    className="form absolute top-[50%] flex flex-col justify-center items-center px-[4rem] gap-[2rem] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[30rem] h-[35rem] rounded-[2rem] bg-[#222222] py-[5rem]"
+                >
+                    <div className="absolute top-[-1rem] right-[-1rem]">
+                        <IconButton
+                            onClick={handleClose}
+                            variant="text"
+                            sx={{ padding: '.7rem', backgroundColor: '#e5e5e5' }}
+                        >
+                            <CloseIcon sx={{ color: '#000000', fontSize: '1.1rem' }} />
+                        </IconButton>
+                    </div>
                     <h1 className='text-white font-[600] text-[1.3rem]'>Welcome back!</h1>
                     <div className="w-full flex flex-col gap-[.5rem]">
                         <h1 className='text-white font-[400] text-[1.1rem]'>
@@ -81,6 +95,7 @@ export default function Home() {
                             type="text"
                             placeholder='Enter your username'
                             className='rounded-lg py-[.7rem] px-[1rem] text-[.8rem] outline-none text-black'
+                            required
                         />
                     </div>
                     <div className="w-full flex flex-col gap-[.5rem]">
@@ -94,15 +109,15 @@ export default function Home() {
                             type="text"
                             placeholder='Enter your password'
                             className='rounded-lg py-[.7rem] px-[1rem] text-[.8rem] outline-none text-black'
+                            required
                         />
                     </div>
                     <button
-                        onClick={handleLogin}
-                        className='w-full h-[2.5rem] rounded-lg bg-[#ffcb05] duration-300 ease hover:opacity-[.6] hover:scale-[.98]'>
+                        type='submit'
+                        className='w-full h-[2.5rem] rounded-lg bg-[#ffcb05] duration-300 ease hover:opacity-[.6] hover:scale-[.98] text-black font-bold'>
                         Login
                     </button>
-                </div>
-
+                </form>
             </Modal>
             <div className="flex flex-col">
                 <Navbar isSignIn={handleOpen} />
@@ -132,6 +147,12 @@ export default function Home() {
                     </p>
                 </div>
                 <div className="w-full py-[5rem] bg-white">
+                    <div className="w-full flex flex-col justify-center items-center gap-[5rem]">
+                        <h1 className='font-bold text-[3rem] text-black'>We are Located At</h1>
+                        <div className="w-[100%] h-[70dvh] flex justify-center items-center">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3825.754636860728!2d121.15600177514493!3d16.487957184253908!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x339044104a33ec8b%3A0xf1afdaa222efc22f!2sDistrict%20IV%2C%20Bayombong%2C%20Nueva%20Vizcaya!5e0!3m2!1sen!2sph!4v1716314418593!5m2!1sen!2sph" width="100%" height="100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
                     <div className="w-full py-[2rem] flex justify-between items-center px-[20rem]">
                         <div className="w-[50%] flex flex-col gap-[.7rem]">
                             <h1 className='font-[600] text-[2rem]'>Are you looking for a unique dining experience?</h1>
@@ -151,12 +172,6 @@ export default function Home() {
                             </h1>
                             <p className='text-black'>Mag-reserba na ngayon at tikman ang sarap ng pinoy!</p>
                         </div>
-                    </div>
-                </div>
-                <div className="w-full flex flex-col justify-center items-center gap-[5rem]">
-                    <h1 className='font-bold text-[3rem] text-black'>We are Located At</h1>
-                    <div className="w-[100%] h-[70dvh] flex justify-center items-center">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3825.754636860728!2d121.15600177514493!3d16.487957184253908!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x339044104a33ec8b%3A0xf1afdaa222efc22f!2sDistrict%20IV%2C%20Bayombong%2C%20Nueva%20Vizcaya!5e0!3m2!1sen!2sph!4v1716314418593!5m2!1sen!2sph" width="100%" height="100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
                 <Footer />
