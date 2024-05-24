@@ -11,8 +11,6 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
 import axios from 'axios'
 
-
-
 export default function ManageUsers() {
     const navigate = useNavigate()
     const [isSidebar, setSidebar] = useState(false)
