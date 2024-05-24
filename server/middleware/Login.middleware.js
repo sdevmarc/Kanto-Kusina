@@ -1,4 +1,3 @@
-const Customers = require('../models/Customers.model')
 const Users = require('../models/Users.model')
 
 const LoginMiddleware = {
@@ -38,20 +37,6 @@ const LoginMiddleware = {
             res.json({ success: false, message: `Error adding customer controller: ${error}` })
         }
     },
-    CheckCustomerUsernameIfMatched: async (req, res, next) => {
-        try {
-            const { username } = req.body
-
-            const CheckUsernameIfMatched = await Customers.findOne({ username: username })
-            if (CheckUsernameIfMatched) {
-                next()
-            } else {
-                return res.json({ success: false, message: 'Invalid Credentials' })
-            }
-        } catch (error) {
-            res.json({ success: false, message: `Error adding customer controller: ${error}` })
-        }
-    },
     CheckUserPasswordIfMatched: async (req, res) => {
         try {
             const { username, password } = req.body
@@ -66,20 +51,6 @@ const LoginMiddleware = {
                     return res.json({ success: false, message: 'User not Authorized!' })
                 }
 
-            } else {
-                return res.json({ success: false, message: 'Invalid Credentials' })
-            }
-        } catch (error) {
-            res.json({ success: false, message: `Error adding customer controller: ${error}` })
-        }
-    },
-    CheckCustomerPasswordIfMatched: async (req, res) => {
-        try {
-            const { password } = req.body
-
-            const CheckUsernameIfMatched = await Customers.findOne({ password: password })
-            if (CheckUsernameIfMatched) {
-                return res.json({ success: true, message: 'Customer Authorized!' })
             } else {
                 return res.json({ success: false, message: 'Invalid Credentials' })
             }
