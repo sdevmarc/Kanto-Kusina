@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import './css/Home.css'
 import Footer from '../components/Footer'
@@ -6,10 +6,24 @@ import F2 from '../assets/f2.png'
 import F3 from '../assets/f3.png'
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export default function Home() {
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate()
+    const [values, setValues] = useState({
+        username: '',
+        password: ''
+    })
+
+    useEffect(() => {
+        fetchToken()
+    }, [])
+
+    const fetchToken = () => {
+        const token = localStorage.getItem('userId')
+        if (token) return navigate('/dashboard')
+    }
 
     const handleOpen = () => {
         setOpen(true)
@@ -19,8 +33,33 @@ export default function Home() {
         setOpen(false)
     }
 
-    const handleLogin = () => {
-        navigate('/dashboard')
+    const handleLogin = async () => {
+        try {
+            const res = await axios.post('http://localhost:3001/api/loginu', values)
+            console.log(res?.data?.userId)
+            if (res?.data?.success) {
+                const userId = res?.data?.userId
+                localStorage.setItem('userId', JSON.stringify({ userId }));
+                return navigate('/dashboard')
+            } else {
+                alert(res?.data?.message)
+            }
+        } catch (error) {
+            alert(error)
+        }
+
+    }
+
+    const handleOnChange = async (e) => {
+        const { name, value } = e.target
+        setValues((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    const handleMenu = () => {
+        navigate('/viewmenu')
     }
 
     return (
@@ -36,6 +75,9 @@ export default function Home() {
                             Username
                         </h1>
                         <input
+                            name='username'
+                            value={values?.username}
+                            onChange={handleOnChange}
                             type="text"
                             placeholder='Enter your username'
                             className='rounded-lg py-[.7rem] px-[1rem] text-[.8rem] outline-none text-black'
@@ -46,6 +88,9 @@ export default function Home() {
                             Password
                         </h1>
                         <input
+                            name='password'
+                            value={values?.password}
+                            onChange={handleOnChange}
                             type="text"
                             placeholder='Enter your password'
                             className='rounded-lg py-[.7rem] px-[1rem] text-[.8rem] outline-none text-black'
@@ -71,13 +116,14 @@ export default function Home() {
                             </h1>
                         </div>
                         <button
+                            onClick={handleMenu}
                             className='w-[10rem] h-[3rem] text-[.8rem] duration-300 ease hover:scale-[.98] hover:bg-[#000] hover:text-[#ffcb05] bg-[#ffcb05] text-black font-[600]'
                         >
                             See Menu
                         </button>
                     </div>
                 </div>
-                <div className="w-full h-[50dvh] bg-[#ffffff] px-[20rem] flex flex-col justify-center items-center gap-[3rem]">
+                <div className="w-full h-[60dvh] bg-[#ffffff] px-[20rem] flex flex-col justify-center items-center gap-[3rem]">
                     <p className='w-[80%] text-[1.3rem] text-center font-[500]'>
                         Welcome to Kanto Kusina Restaurant, where we are committed to providing you with an unforgettable dining experience. From our cozy atmosphere to our mouth-watering dishes, we are dedicated to making your visit a memorable one.
                     </p>
