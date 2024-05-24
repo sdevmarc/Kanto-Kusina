@@ -1,10 +1,25 @@
 const Products = require('../models/Products.model')
 
 const ProductController = {
-    AddProduct: async (req, res) => {
+    AddProductWithoutImage: async (req, res) => {
+        try {
+            const values = req.body
+
+            const AddProduct = await Products.create(values)
+
+            if (AddProduct) {
+                res.json({ success: true, message: 'Item added successfully!', data: AddProduct })
+            } else {
+                res.json({ success: false, message: 'Item failed to add!!' })
+            }
+
+        } catch (error) {
+            res.json({ success: false, message: `Error adding product controller: ${error}` })
+        }
+    },
+    AddProductWithImage: async (req, res) => {
         try {
             const { userId, productName, productDetails, productPrice } = req.body
-            // const { productName, productDetails, productPrice } = productInformation
             const productPhoto = req.file.filename;
 
             const newProduct = new Products({
@@ -53,16 +68,37 @@ const ProductController = {
             res.json({ success: false, message: `Error searching product controller: ${error}` })
         }
     },
-    UpdateProduct: async (req, res) => {
+    UpdateProductWithoutImage: async (req, res) => {
         try {
-            const { productId, userId, productInformation } = req.body
+            const { productId, userId, productInformation} = req.body
             const { productName, productDetails, productPrice } = productInformation
-            let productPhoto = productInformation.productPhoto;
 
-            // Check if a new photo was uploaded
-            if (req.file) {
-                productPhoto = req.file.filename;
+            const updatedProduct = await Products.findByIdAndUpdate(
+                productId,
+                {
+                    userId: userId,
+                    "productInformation.productName": productName,
+                    "productInformation.productDetails": productDetails,
+                    "productInformation.productPrice": productPrice,
+                },
+                {
+                    new: true
+                }
+            )
+            if (updatedProduct) {
+                res.json({ success: true, message: 'Product updated successfully!', data: updatedProduct })
+            } else {
+                res.json({ success: false, message: 'Product failed to update!' })
             }
+
+        } catch (error) {
+            res.json({ success: false, message: `Error updating product controller: ${error}` })
+        }
+    },
+    UpdateProductWithImage: async (req, res) => {
+        try {
+            const { productId, userId, productName, productDetails, productPrice } = req.body
+            const productPhoto = req.file.filename;
 
             const updatedProduct = await Products.findByIdAndUpdate(
                 productId,
@@ -77,13 +113,11 @@ const ProductController = {
                     new: true
                 }
             )
-
             if (updatedProduct) {
                 res.json({ success: true, message: 'Product updated successfully!', data: updatedProduct })
             } else {
                 res.json({ success: false, message: 'Product failed to update!' })
             }
-
         } catch (error) {
             res.json({ success: false, message: `Error updating product controller: ${error}` })
         }
