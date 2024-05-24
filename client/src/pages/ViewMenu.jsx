@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import './css/Home.css'
 import Footer from '../components/Footer'
-import F2 from '../assets/f2.png'
-import F3 from '../assets/f3.png'
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton } from '@mui/material';
+
+
 export default function ViewMenu() {
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate()
@@ -41,7 +43,7 @@ export default function ViewMenu() {
 
     const handleLogin = async () => {
         try {
-            const res = await axios.post('http://localhost:3001/api/loginu', values)
+            const res = await axios.post('http://localhost:3001/api/login', values)
             console.log(res?.data?.userId)
             if (res?.data?.success) {
                 const userId = res?.data?.userId
@@ -70,7 +72,20 @@ export default function ViewMenu() {
                 open={open}
                 onClose={handleClose}
             >
-                <div className="form absolute top-[50%] flex flex-col justify-center items-center px-[4rem] gap-[2rem] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[30rem] h-[35rem] rounded-[2rem] bg-[#222222] py-[5rem]">
+                <form
+                    onSubmit={handleLogin}
+                    className="form absolute top-[50%] flex flex-col justify-center items-center px-[4rem] gap-[2rem] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[30rem] h-[35rem] rounded-[2rem] bg-[#222222] py-[5rem]"
+                >
+                    <div className="absolute top-[-1rem] right-[-1rem]">
+                        <IconButton
+                        onClick={handleClose}
+                            variant="text"
+                            sx={{ padding: '.7rem', backgroundColor: '#e5e5e5' }}
+                        >
+                            <CloseIcon sx={{ color: '#000000', fontSize: '1.1rem' }} />
+                        </IconButton>
+                    </div>
+
                     <h1 className='text-white font-[600] text-[1.3rem]'>Welcome back!</h1>
                     <div className="w-full flex flex-col gap-[.5rem]">
                         <h1 className='text-white font-[400] text-[1.1rem]'>
@@ -83,6 +98,7 @@ export default function ViewMenu() {
                             type="text"
                             placeholder='Enter your username'
                             className='rounded-lg py-[.7rem] px-[1rem] text-[.8rem] outline-none text-black'
+                            required
                         />
                     </div>
                     <div className="w-full flex flex-col gap-[.5rem]">
@@ -96,15 +112,15 @@ export default function ViewMenu() {
                             type="text"
                             placeholder='Enter your password'
                             className='rounded-lg py-[.7rem] px-[1rem] text-[.8rem] outline-none text-black'
+                            required
                         />
                     </div>
                     <button
-                        onClick={handleLogin}
-                        className='w-full h-[2.5rem] rounded-lg bg-[#ffcb05] duration-300 ease hover:opacity-[.6] hover:scale-[.98]'>
+                        type='submit'
+                        className='w-full h-[2.5rem] rounded-lg bg-[#ffcb05] duration-300 ease hover:opacity-[.6] hover:scale-[.98] text-black font-bold'>
                         Login
                     </button>
-                </div>
-
+                </form>
             </Modal>
             <div className="flex flex-col">
                 <Navbar isSignIn={handleOpen} />
