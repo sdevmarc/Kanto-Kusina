@@ -3,9 +3,9 @@ const ProductMidlleware = {
     CreateProductCheckEmptyFields: async (req, res, next) => {
         try {
             const { userId, productInformation } = req.body
-            const { productName, productDetails, productPhoto, productPrice } = productInformation
+            const { productName, productDetails, productPrice } = productInformation
 
-            if (!userId || !productName || !productDetails || !productPhoto || !productPrice) {
+            if (!userId || !productName || !productDetails || !productPrice) {
                 return res.json({ success: false, message: 'Please fill-in the required fields!' })
             } else {
                 next()
@@ -27,13 +27,13 @@ const ProductMidlleware = {
             res.json({ success: false, message: `Error adding customer controller: ${error}` })
         }
     },
-    UpdateCheckEmptyFields: async (req, res, next) => {
+    UpdateWithoutImageCheckEmptyFields: async (req, res, next) => {
         try {
-            const { productId, productInformation } = req.body
-            const { productName, productDetails, productPhoto, productPrice } = productInformation
+            const { productId, userId, productInformation } = req.body
+            const { productName, productDetails, productPrice } = productInformation
 
-            if (!productId || !productName || !productDetails || !productPhoto || !productPrice) {
-                return res.json({ success: false, message: 'Please fill-in the required fields!',  })
+            if (!productId || !productName || !productDetails || !productPrice || !userId) {
+                return res.json({ success: false, message: 'Please fill-in the required fields!', })
             } else {
                 next()
             }
