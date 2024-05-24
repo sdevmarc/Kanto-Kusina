@@ -7,7 +7,6 @@ const connectDb = require('../config/dbhandler')
 
 const UserRoute = require('../routes/Users.routes')
 const ProductRoute = require('../routes/Products.routes')
-const CustomerRoute = require('../routes/Customers.routes')
 const LoginRoute = require('../routes/Login.routes')
 
 app.use(cors({
@@ -32,7 +31,6 @@ app.use('/api', UserRoute)
 
 app.use('/api', ProductRoute)
 
-app.use('/api', CustomerRoute)
 
 
 module.exports = app;
