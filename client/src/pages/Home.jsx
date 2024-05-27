@@ -85,7 +85,7 @@ export default function Home() {
                     <h1 className='text-white font-[600] text-[1.3rem]'>Welcome back!</h1>
                     <div className="w-full flex flex-col gap-[.5rem]">
                         <h1 className='text-white font-[400] text-[1.1rem]'>
-                            Username
+                            Usernames
                         </h1>
                         <input
                             name='username'
