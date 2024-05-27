@@ -132,8 +132,19 @@ const ManageMenu = () => {
         }
     }
 
-    const handleDeleteMenu = async () => {
-
+    const handleDeleteMenu = async (e) => {
+        try {
+            const res = await axios.post(`http://localhost:3001/api/deleteproduct`, { productId: e?.id })
+            if (res?.data?.success) {
+                alert(res?.data?.message)
+            } else {
+                alert(res?.data?.message)
+            }
+        } catch (error) {
+            console.error(error)
+        } finally {
+            fetchMenu()
+        }
     }
 
     const handleOnClickAddMenu = () => {
@@ -230,7 +241,7 @@ const ManageMenu = () => {
                 <Button onClick={() => handleOnClickEditMenu(params.row)} variant="text">
                     <EditIcon />
                 </Button>
-                <Button onClick={null} variant="text">
+                <Button onClick={() => handleDeleteMenu(params.row)} variant="text">
                     <DeleteIcon />
                 </Button>
             </div>
