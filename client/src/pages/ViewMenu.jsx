@@ -41,10 +41,10 @@ export default function ViewMenu() {
         setOpen(false)
     }
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
         try {
+            e.preventDefault()
             const res = await axios.post('http://localhost:3001/api/login', values)
-            console.log(res?.data?.userId)
             if (res?.data?.success) {
                 const userId = res?.data?.userId
                 localStorage.setItem('userId', JSON.stringify({ userId }));
@@ -55,7 +55,6 @@ export default function ViewMenu() {
         } catch (error) {
             alert(error)
         }
-
     }
 
     const handleOnChange = async (e) => {
@@ -70,26 +69,37 @@ export default function ViewMenu() {
         <>
             <div className="flex flex-col">
                 <Navbar isSignIn={handleOpen} />
-                <div className="w-full h-screen p-[1rem] flex flex-col gap-[1rem]">
-                    <h1 className='text-[2rem] font-[600]'>Menu</h1>
-                    <div className="w-full h-full flex justify-start gap-[1rem] flex-wrap">
+                <div className="w-full px-[2rem] sm:px-[5rem] md:px-[10rem] py-[1rem] flex flex-col gap-[1rem]">
+                    <h1 className='text-[1rem] sm:text-[1.5rem] md:text-[2rem] font-[600]'>Menu</h1>
+                    <div className="w-full h-full flex justify-evenly gap-[1rem] flex-wrap">
                         {
                             details?.map((item) => (
                                 <div key={item?._id}
-                                    className="overflow-hidden w-[17rem] h-[22rem] rounded-xl duration-300 ease hover:scale-[.98] flex flex-col shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
+                                    className="overflow-hidden w-[15rem] sm:w-[15rem] md:w-[17rem] h-[17rem] sm:h-[17rem] md:h-[22rem] rounded-xl duration-300 ease hover:scale-[.98] flex flex-col shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
                                     <div className="overflow-hidden w-full h-[60%] bg-black">
-                                        <img
-                                            src={`http://localhost:3001/uploads/${item?.productInformation?.productPhoto}`}
-                                            alt="Product image"
-                                            className='object-cover w-full h-full'
-                                        />
+                                        {
+                                            item?.productInformation?.productPhoto ? (
+                                                <img
+                                                    src={`http://localhost:3001/uploads/${item?.productInformation?.productPhoto}`}
+                                                    alt="Product image"
+                                                    className='object-cover w-full h-full'
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={`https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg`}
+                                                    alt="Product image"
+                                                    className='object-cover w-full h-full'
+                                                />
+                                            )
+                                        }
+
                                     </div>
                                     <div className="overflow-auto w-full h-[40%] flex flex-col px-[1rem] gap-[.5rem] py-[.5rem]">
-                                        <h1 className='w-full h-[30%] text-black text-[1.7rem] font-[600] text-ellipsis'>
+                                        <h1 className=' overflow-hidden w-full h-[30%] text-black text-[.8rem] sm:text-[1rem] md:text-[1.7rem] font-[600] text-ellipsis'>
                                             {item?.productInformation?.productName}
                                         </h1>
 
-                                        <p className='w-full h-[60%] text-black text-justify text-[.7rem] text-ellipsis overflow-hidden'>
+                                        <p className='overflow-auto w-full h-[60%] text-black text-justify text-[.7rem] text-ellipsis'>
                                             {item?.productInformation?.productDetails}
                                         </p>
                                     </div>
@@ -106,18 +116,17 @@ export default function ViewMenu() {
             >
                 <form
                     onSubmit={handleLogin}
-                    className="form absolute top-[50%] flex flex-col justify-center items-center px-[4rem] gap-[2rem] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[30rem] h-[35rem] rounded-[2rem] bg-[#222222] py-[5rem]"
+                    className="form absolute top-[50%] flex flex-col justify-center items-center px-[1.5rem] sm:px-[2.5rem] md:px-[4rem] gap-[2rem] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[20rem] sm:w-[25rem] md:w-[30rem] h-[25rem] sm:h-[30rem] md:h-[35rem] rounded-[2rem] bg-[#222222] py-[2rem] sm:py-[3rem] md:py-[5rem]"
                 >
                     <div className="absolute top-[-1rem] right-[-1rem]">
                         <IconButton
                             onClick={handleClose}
                             variant="text"
-                            sx={{ padding: '.7rem', backgroundColor: '#e5e5e5' }}
+                            sx={{ padding: '.4rem', backgroundColor: '#e5e5e5' }}
                         >
                             <CloseIcon sx={{ color: '#000000', fontSize: '1.1rem' }} />
                         </IconButton>
                     </div>
-
                     <h1 className='text-white font-[600] text-[1.3rem]'>Welcome back!</h1>
                     <div className="w-full flex flex-col gap-[.5rem]">
                         <h1 className='text-white font-[400] text-[1.1rem]'>
