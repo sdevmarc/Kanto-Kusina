@@ -18,27 +18,13 @@ export default function Sidebar({ isSidebar }) {
                                 <NavLink
                                     to={item.navigate}
                                     key={item.id}
-                                    className='w-full px-[1rem] py-[.5rem] rounded-lg text-[#111111] flex items-center gap-3 font-[600] text-[15px] hover:bg-[#dcdcde] duration-300 ease-in-out'
+                                    className='w-full px-[1rem] py-[.5rem] rounded-lg text-[#111111] flex items-center gap-3 font-[600] text-[10px] sm:text-[13px] md:text-[15px] hover:bg-[#dcdcde] duration-300 ease-in-out'
                                 >
                                     {item.icon}{!isSidebar && item.name}
                                 </NavLink>
                             ))
                         }
                     </div>
-
-                    {/* <div className="w-full flex flex-col justify-start items-start gap-[.5rem]">
-                        {
-                            bottomNavs.map((item) => (
-                                <NavLink
-                                    to={item.navigate}
-                                    key={item.id}
-                                    className='w-full px-[1rem] py-[.5rem] rounded-lg text-[#111111] flex items-center gap-3 font-[600] text-[15px] hover:bg-[#dcdcde] duration-300 ease-in-out'
-                                >
-                                    {item.icon}{!isSidebar && item.name}
-                                </NavLink>
-                            ))
-                        }
-                    </div> */}
                 </div>
             </div>
         </>
