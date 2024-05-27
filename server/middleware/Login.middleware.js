@@ -19,8 +19,7 @@ const LoginMiddleware = {
             const { username } = req.body
 
             checkUsers = await Users.find()
-            console.log(checkUsers)
-            
+        
             if(checkUsers.length > 0 ) {
                 const CheckUsernameIfMatched = await Users.findOne({ username: username })
                 if (CheckUsernameIfMatched) {
@@ -44,7 +43,7 @@ const LoginMiddleware = {
             const CheckUsernameIfMatched = await Users.findOne({ username: username })
 
             if (CheckUsernameIfMatched) {
-                console.log('Tite', password)
+           
                 if (password === CheckUsernameIfMatched?.password) {
                     return res.json({ success: true, message: 'User Authorized!', userId: CheckUsernameIfMatched?._id })
                 } else {
