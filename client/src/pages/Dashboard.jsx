@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-
 import Sidebar from '../components/Sidebar'
 import DashNavbar from '../components/DashNavbar'
 import { useNavigate } from 'react-router-dom'
@@ -30,8 +29,8 @@ export default function Dashboard() {
             <div className="flex flex-col">
                 <DashNavbar onSelectSidebar={(item) => toggleSidebar(item)} />
                 <div className="flex">
-                    <Sidebar isSidebar={isSidebar} />
-                    <div className={`${isSidebar ? 'w-[100%]' : 'w-[82.5%]'} h-[93vh] p-[1rem] flex flex-col gap-2`}>
+                    <Sidebar />
+                    <div className={`w-[82.5%] h-[93vh] p-[1rem] flex flex-col gap-2`}>
                         <div className="w-full h-[5%] flex justify-start items-center">
                             <h1
                                 className='font-[600]'
