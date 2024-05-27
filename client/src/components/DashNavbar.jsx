@@ -51,12 +51,6 @@ export default function DashNavbar({ onSelectSidebar }) {
                 </div>
 
                 <div className='h-full flex items-center gap-[2rem]'>
-                    <button>
-                        <Badge badgeContent={4} color="primary">
-                            <MailIcon color="action" />
-                        </Badge>
-                    </button>
-
                     <Button onClick={handleClick}>
                         <Avatar
                             {...stringAvatar('Kent Dodds')}
