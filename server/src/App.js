@@ -31,6 +31,6 @@ app.use('/api', UserRoute)
 
 app.use('/api', ProductRoute)
 
-//tite
+//tit
 
 module.exports = app;
